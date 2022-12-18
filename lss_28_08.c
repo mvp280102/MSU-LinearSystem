@@ -1,9 +1,9 @@
 #include "lss_28_08.h"
 
-size_t debug = 0;
-size_t errors = 0;
-size_t print = 0;
-size_t time = 0;
+size_t debug_print = 0;
+size_t errors_print = 0;
+size_t matrix_print = 0;
+size_t time_print = 0;
 
 size_t lss_memsize_28_08(int n)
 {

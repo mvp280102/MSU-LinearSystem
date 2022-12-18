@@ -6,6 +6,8 @@
 
 int main(int argc, char *argv[])
 {
+    size_t start_time, stop_time;
+
     int dim, error_code;
     double *a_matrix, *b_array, *x_array;
 
@@ -28,10 +30,10 @@ int main(int argc, char *argv[])
     for (size_t i = index; i < argc; ++i)
         switch (argv[i][1])
         {
-            case 'd': debug = 1; break;
-            case 'e': errors = 1; break;
-            case 'p': print = 1; break;
-            case 't': time = 1; break;
+            case 'd': debug_print = 1; break;
+            case 'e': errors_print = 1; break;
+            case 'p': matrix_print = 1; break;
+            case 't': time_print = 1; break;
 
             default:
                 printf("Ignoring unknown option: -%c.\n", argv[i][1]);
@@ -55,7 +57,16 @@ int main(int argc, char *argv[])
     for (size_t i = 0; i < dim; ++i)
         fscanf_s(in_file, "%lf", &b_array[i]);
 
+    if (time_print)
+        start_time = clock();
+
     error_code = lss_28_08(dim, a_matrix, b_array, x_array, NULL);
+
+    if (time_print)
+    {
+        stop_time = clock();
+        printf("Working time - %zu ms.\n", stop_time - start_time);
+    }
 
     for (size_t i = 0; i < dim; ++i)
     {
