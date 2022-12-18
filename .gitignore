@@ -1,8 +1,9 @@
 .idea/
-plot.png
-input.txt
-output.txt
-readme.txt
+
+lss_00_00_in.txt
+lss_00_00_out.txt
+readme_lss_28_08.txt
+
 CMakeLists.txt
 /cmake-build-debug/
 /cmake-build-release/
