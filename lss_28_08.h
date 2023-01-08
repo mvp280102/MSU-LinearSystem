@@ -26,3 +26,5 @@ void u_matrix_print(int n, const double *A);
 void l_u_matrix_print(int n, const double *A);
 
 void vector_print(int n, const double *X);
+
+void help_print();

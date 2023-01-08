@@ -1,7 +1,3 @@
-// LU-разложение.
-// Вместо вычисления определителя можно проверять на равенство нулю элементов главной диагонали матрицы U.
-// Вместо двух матриц L и U можно хранить все это в одной матрице.
-
 #include "lss_28_08.h"
 
 int main(int argc, char *argv[])
@@ -34,6 +30,11 @@ int main(int argc, char *argv[])
             case 'p': matrix_print = 1; break;
             case 'e': errors_print = 1; break;
             case 't': time_print = 1; break;
+
+            case 'h':
+            case '?':
+                help_print();
+                return 0;
 
             default:
                 printf("Ignoring unknown option: %s.\n", argv[i]);
@@ -68,13 +69,15 @@ int main(int argc, char *argv[])
         printf("Working time - %zu ms.\n", stop_time - start_time);
     }
 
-    for (size_t i = 0; i < dim; ++i)
+    if (error_code == 0)
     {
-        for (size_t j = 0; j < dim; ++j)
-            printf("%.4lf\t", a_matrix[i * dim + j]);
+        fprintf_s(out_file, "%d\n", dim);
 
-        printf("\n");
+        for (int i = 0; i < dim; ++i)
+            fprintf_s(out_file, "%.9lf\n", x_array[i]);
     }
+    else
+        fprintf_s(out_file, "%d\n", 0);
 
     free(a_matrix);
     free(b_array);

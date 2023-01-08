@@ -176,3 +176,16 @@ void vector_print(int n, const double *X)
 
     printf("\n");
 }
+
+void help_print()
+{
+    printf("Usage: lss [input_file_name] [output_file_name] [options]\n");
+    printf("Where options include:\n");
+    printf("\t-d\tprint debug messages [default OFF]\n");
+    printf("\t-p\tprint matrix [default OFF]\n");
+    printf("\t-e\tprint errors [default OFF]\n");
+    printf("\t-t\tprint execution time [default OFF]\n");
+    printf("\t-h, -?\tprint help and exit\n");
+    printf("Default input_file_name value is lss_00_00_in.txt, default output_file_name value is lss_00_00_out.txt.\n");
+
+}
