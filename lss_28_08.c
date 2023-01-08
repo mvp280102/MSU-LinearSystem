@@ -5,6 +5,9 @@ size_t errors_print = 0;
 size_t matrix_print = 0;
 size_t time_print = 0;
 
+
+//// ОСНОВНЫЕ ФУНКЦИИ:
+
 size_t lss_memsize_28_08(int n)
 {
     return n * sizeof(double);
@@ -15,7 +18,7 @@ int lss_28_08(int n, double *A, double *B, double *X, double *tmp)
     lu_decomposition(n, A);
 
     for (int i = 0; i < n; ++i)
-        if (A[i * (n + 1)] == 0)
+        if (fabs(A[i * (n + 1)]) < EPS)
         {
             if (errors_print)
             {
@@ -30,6 +33,9 @@ int lss_28_08(int n, double *A, double *B, double *X, double *tmp)
 
     return 0;
 }
+
+
+//// ФУНКЦИИ LU-РАЗЛОЖЕНИЯ МАТРИЦЫ:
 
 double l_sum(int n, int i, int k, const double *A)
 {
@@ -92,6 +98,12 @@ void lu_decomposition(int n, double *A)
     }
 }
 
+
+//// ФУНКЦИИ РЕШЕНИЯ СИСТЕМЫ ЛИНЕЙНЫХ УРАВНЕНИЙ:
+
+// Возвращает сумму произведений вычисленных на данный момент
+// значений неизвестных переменных на их коэффициенты, используя
+// обратный ход метода Гаусса на верхней треугольной матрице U.
 double x_sum(int n, int i, const double *A, const double *X)
 {
     double res = 0;
@@ -102,6 +114,9 @@ double x_sum(int n, int i, const double *A, const double *X)
     return res;
 }
 
+// Возвращает сумму произведений вычисленных на данный момент
+// значений неизвестных переменных на их коэффициенты, используя
+// прямой ход метода Гаусса на нижней треугольной матрице L.
 double y_sum(int n, int i, const double *A, const double *Y)
 {
     double res = 0;
@@ -112,6 +127,8 @@ double y_sum(int n, int i, const double *A, const double *Y)
     return res;
 }
 
+// Решает систему линейных уравнений, используя LU-разложение матрицы коэффициентов.
+// После выполнения массив значений неизвестных переменных X содержит решение системы.
 void solve(int n, const double *A, const double *B, double *X)
 {
     for (int i = 0; i < n; ++i)
@@ -134,6 +151,20 @@ void solve(int n, const double *A, const double *B, double *X)
     }
 }
 
+
+//// ФУНКЦИИ ВЫВОДА ВЕКТОРОВ И МАТРИЦ LU-РАЗЛОЖЕНИЯ:
+
+// Выводит на экран в одной строке вектор значений.
+void vector_print(int n, const double *X)
+{
+    for (int i = 0; i < n; ++i)
+        printf("%.4lf\t", X[i]);
+
+    printf("\n");
+}
+
+// Выводит на экран матрицу L, т. е. нижний треугольник
+// матрицы коэффициентов с ее главной диагональю.
 void l_matrix_print(int n, const double *A)
 {
     for (int i = 0; i < n; ++i)
@@ -145,6 +176,8 @@ void l_matrix_print(int n, const double *A)
     }
 }
 
+// Выводит на экран матрицу U, т. е. верхний треугольник
+// матрицы коэффициентов с единичной главной диагональю.
 void u_matrix_print(int n, const double *A)
 {
     for (int i = 0; i < n; ++i)
@@ -156,6 +189,7 @@ void u_matrix_print(int n, const double *A)
     }
 }
 
+// Выводит на экран матрицы L и U.
 void l_u_matrix_print(int n, const double *A)
 {
     printf("L matrix:\n");
@@ -169,14 +203,10 @@ void l_u_matrix_print(int n, const double *A)
     printf("\n");
 }
 
-void vector_print(int n, const double *X)
-{
-    for (int i = 0; i < n; ++i)
-        printf("%.4lf\t", X[i]);
 
-    printf("\n");
-}
+//// ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ:
 
+// Выводит на экран справочное сообщение.
 void help_print()
 {
     printf("Usage: lss [input_file_name] [output_file_name] [options]\n");
@@ -186,6 +216,5 @@ void help_print()
     printf("\t-e\tprint errors [default OFF]\n");
     printf("\t-t\tprint execution time [default OFF]\n");
     printf("\t-h, -?\tprint help and exit\n");
-    printf("Default input_file_name value is lss_00_00_in.txt, default output_file_name value is lss_00_00_out.txt.\n");
-
+    printf("Default input_file_name value is lss_28_08_in.txt, default output_file_name value is lss_28_08_out.txt.\n");
 }
