@@ -23,4 +23,4 @@ void solve(int n, const double *A, const double *B, double *X);
 
 void l_matrix_print(int n, const double *A);
 void u_matrix_print(int n, const double *A);
-void l_u_matrix_print(int k, int n, const double *A);
+void l_u_matrix_print(int n, const double *A);

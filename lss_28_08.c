@@ -46,25 +46,35 @@ void lu_decomposition(int n, double *A)
         A[k] /= A[0];
 
     if (matrix_print)
-        l_u_matrix_print(0, n, A);
+    {
+        printf("Step %d:\n\n", 0);
+        l_u_matrix_print(n, A);
+    }
 
     for (int i = 1; i < n; ++i)
-        for (int j = i; j < n; ++j)
-        {
-            if (matrix_print)
-            {
-                l_u_matrix_print(i, n, A);
+    {
+        if (matrix_print)
+            printf("Step %d:\n\n", i);
 
-            }
-
+        for (int j = i; j < n; ++j) {
             A[j * n + i] -= l_sum(n, j, i, A);
 
-            if (j < n - 1)
-            {
+            if (j < n - 1) {
                 A[i * n + j + 1] -= u_sum(n, i, j + 1, A);
                 A[i * n + j + 1] /= A[i * (n + 1)];
             }
+
+            if (matrix_print) {
+                l_u_matrix_print(n, A);
+
+                if (debug_print) {
+                    printf("L subtraction sum: %lf\n", l_sum(n, j, i, A));
+                    printf("U subtraction sum: %lf\n", u_sum(n, i, j + 1, A));
+                    printf("\n");
+                }
+            }
         }
+    }
 }
 
 double x_sum(int n, int i, const double *A, const double *X)
@@ -104,12 +114,12 @@ void u_matrix_print(int n, const double *A)
     }
 }
 
-void l_u_matrix_print(int k, int n, const double *A)
+void l_u_matrix_print(int n, const double *A)
 {
-    printf("Step %d:\n\n", k);
-
     printf("L matrix:\n");
     l_matrix_print(n, A);
+
+    printf("\n");
 
     printf("U matrix:\n");
     u_matrix_print(n, A);

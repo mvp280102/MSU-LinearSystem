@@ -30,13 +30,13 @@ int main(int argc, char *argv[])
     for (size_t i = index; i < argc; ++i)
         switch (argv[i][1])
         {
-            case 'd': debug_print = 1; break;
-            case 'e': errors_print = 1; break;
+            case 'd': debug_print = 1;
             case 'p': matrix_print = 1; break;
+            case 'e': errors_print = 1; break;
             case 't': time_print = 1; break;
 
             default:
-                printf("Ignoring unknown option: -%c.\n", argv[i][1]);
+                printf("Ignoring unknown option: %s.\n", argv[i]);
         }
 
     if (!in_file || !out_file)
