@@ -60,22 +60,12 @@ void lu_decomposition(int n, double *A)
 
 double x_sum(int n, size_t i, const double *A, const double *X)
 {
-    double res = 0;
 
-    for (size_t j = n - 1; j > i + 1; --j)
-        res += A[i * n + j] * X[j];
-
-    return res + X[i];
 }
 
 double y_sum(int n, size_t i, const double *A, const double *Y)
 {
-    double res = 0;
 
-    for (size_t j = 0; j < n; ++j)
-        res += A[i * n + j] * Y[j];
-
-    return res;
 }
 
 void solve(int n, const double *A, const double *B, double *X)
@@ -83,10 +73,24 @@ void solve(int n, const double *A, const double *B, double *X)
 
 }
 
-void print_matrix(int n, const double *matrix)
+void l_matrix_print(int n, const double *A)
 {
-    for (size_t i = 0; i < n * n; ++i)
-        printf("%lf ", matrix[i]);
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j)
+            printf("%.4lf\t", i >= j ? A[i * n + j] : 0);
 
-    printf("\n");
+        printf("\n");
+    }
+}
+
+void u_matrix_print(int n, const double *A)
+{
+    for (int i = 0; i < n; ++i)
+    {
+        for (int j = 0; j < n; ++j)
+            printf("%.4lf\t", i < j ? A[i * n + j] : i == j ? 1 : 0);
+
+        printf("\n");
+    }
 }

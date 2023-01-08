@@ -21,4 +21,5 @@ double x_sum(int n, size_t i, const double *A, const double *X);
 double y_sum(int n, size_t i, const double *A, const double *Y);
 void solve(int n, const double *A, const double *B, double *X);
 
-void print_matrix(int n, const double *matrix);
+void l_matrix_print(int n, const double *A);
+void u_matrix_print(int n, const double *A);
