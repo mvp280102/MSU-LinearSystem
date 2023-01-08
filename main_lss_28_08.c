@@ -1,15 +1,16 @@
 #include "lss_28_08.h"
 
+
 int main(int argc, char *argv[])
 {
     size_t start_time, stop_time;
 
-    int dim, error_code;
+    int dim, error_code = 0;
     double *a_matrix, *b_array, *x_array;
 
     size_t index = 1;
-    FILE *in_file = fopen("lss_00_00_in.txt", "r"),
-         *out_file = fopen("lss_00_00_out.txt", "w");
+    FILE *in_file = fopen("lss_28_08_in.txt", "r"),
+         *out_file = fopen("lss_28_08_out.txt", "w");
 
     if ((argc > 1) && (argv[1][0] != '-'))
     {
@@ -34,29 +35,40 @@ int main(int argc, char *argv[])
             case 'h':
             case '?':
                 help_print();
-                return 0;
+                return error_code;
 
             default:
-                printf("Ignoring unknown option: %s.\n", argv[i]);
+                if (errors_print)
+                    printf("Unknown option: %s.\n", argv[i]);
+
+                error_code = 2;
         }
 
     if (!in_file || !out_file)
     {
-        printf("Aborting application!\n");
-        exit(1);
+        if (errors_print)
+            printf("File(s) opening error!\n");
+
+        error_code = 3;
     }
 
-    fscanf_s(in_file, "%d", &dim);
+    if (error_code)
+    {
+        printf("Aborting application!\n");
+        return error_code;
+    }
+
+    fscanf(in_file, "%d", &dim);
 
     a_matrix = (double*)malloc(lss_memsize_28_08(dim * dim));
     b_array = (double*)malloc(lss_memsize_28_08(dim));
     x_array = (double*)malloc(lss_memsize_28_08(dim));
 
     for (size_t i = 0; i < dim * dim; ++i)
-        fscanf_s(in_file, "%lf", &a_matrix[i]);
+        fscanf(in_file, "%lf", &a_matrix[i]);
 
     for (size_t i = 0; i < dim; ++i)
-        fscanf_s(in_file, "%lf", &b_array[i]);
+        fscanf(in_file, "%lf", &b_array[i]);
 
     if (time_print)
         start_time = clock();
@@ -69,15 +81,15 @@ int main(int argc, char *argv[])
         printf("Working time - %zu ms.\n", stop_time - start_time);
     }
 
-    if (error_code == 0)
+    if (!error_code)
     {
-        fprintf_s(out_file, "%d\n", dim);
+        fprintf(out_file, "%d\n", dim);
 
         for (int i = 0; i < dim; ++i)
-            fprintf_s(out_file, "%.9lf\n", x_array[i]);
+            fprintf(out_file, "%.9lf\n", x_array[i]);
     }
     else
-        fprintf_s(out_file, "%d\n", 0);
+        fprintf(out_file, "%d\n", 0);
 
     free(a_matrix);
     free(b_array);
