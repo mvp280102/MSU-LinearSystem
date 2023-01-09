@@ -8,11 +8,16 @@ size_t time_print = 0;
 
 //// ОСНОВНЫЕ ФУНКЦИИ:
 
+// Возвращает размер памяти в байтах, необходимый для
+// хранения определенного количества элементов типа double.
 size_t lss_memsize_28_08(int n)
 {
     return n * sizeof(double);
 }
 
+
+// Выполняет LU-разложение матрицы коэффициентов системы
+// линейных уравнений, и с его помощью решает ее.
 int lss_28_08(int n, double *A, double *B, double *X, double *tmp)
 {
     lu_decomposition(n, A);
@@ -37,6 +42,9 @@ int lss_28_08(int n, double *A, double *B, double *X, double *tmp)
 
 //// ФУНКЦИИ LU-РАЗЛОЖЕНИЯ МАТРИЦЫ:
 
+
+// Возвращает сумму произведений предыдущих элементов матриц
+// L и U для вычитания из текущего элемента матрицы L.
 double l_sum(int n, int i, int k, const double *A)
 {
     double res = 0;
@@ -47,6 +55,8 @@ double l_sum(int n, int i, int k, const double *A)
     return res;
 }
 
+// Возвращает сумму произведений предыдущих элементов матриц
+// L и U для вычитания из текущего элемента матрицы U.
 double u_sum(int n, int i, int k, const double *A)
 {
     double res = 0;
@@ -57,6 +67,7 @@ double u_sum(int n, int i, int k, const double *A)
     return res;
 }
 
+// Выполняет LU-разложение матрицы коэффициентов.
 void lu_decomposition(int n, double *A)
 {
     for (int k = 1; k < n; ++k)
@@ -128,7 +139,6 @@ double y_sum(int n, int i, const double *A, const double *Y)
 }
 
 // Решает систему линейных уравнений, используя LU-разложение матрицы коэффициентов.
-// После выполнения массив значений неизвестных переменных X содержит решение системы.
 void solve(int n, const double *A, const double *B, double *X)
 {
     for (int i = 0; i < n; ++i)
@@ -164,7 +174,7 @@ void vector_print(int n, const double *X)
 }
 
 // Выводит на экран матрицу L, т. е. нижний треугольник
-// матрицы коэффициентов с ее главной диагональю.
+// LU-разложения матрицы с ее главной диагональю.
 void l_matrix_print(int n, const double *A)
 {
     for (int i = 0; i < n; ++i)
@@ -177,7 +187,7 @@ void l_matrix_print(int n, const double *A)
 }
 
 // Выводит на экран матрицу U, т. е. верхний треугольник
-// матрицы коэффициентов с единичной главной диагональю.
+// LU-разложения матрицы с единичной главной диагональю.
 void u_matrix_print(int n, const double *A)
 {
     for (int i = 0; i < n; ++i)
