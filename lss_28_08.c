@@ -100,8 +100,8 @@ void lu_decomposition(int n, double *A)
 
                 if (debug_print)
                 {
-                    printf("L subtraction sum: %.4lf\n", l_sum(n, j, i, A));
-                    printf("U subtraction sum: %.4lf\n", u_sum(n, i, j + 1, A));
+                    printf("L subtraction sum: %.9lf\n", l_sum(n, j, i, A));
+                    printf("U subtraction sum: %.9lf\n", u_sum(n, i, j + 1, A));
                     printf("\n");
                 }
             }
@@ -168,7 +168,7 @@ void solve(int n, const double *A, const double *B, double *X)
 void vector_print(int n, const double *X)
 {
     for (int i = 0; i < n; ++i)
-        printf("%.4lf\t", X[i]);
+        printf("%.9lf\t", X[i]);
 
     printf("\n");
 }
@@ -180,7 +180,7 @@ void l_matrix_print(int n, const double *A)
     for (int i = 0; i < n; ++i)
     {
         for (int j = 0; j < n; ++j)
-            printf("%.4lf\t", i >= j ? A[i * n + j] : 0);
+            printf("%.9lf\t", i >= j ? A[i * n + j] : 0);
 
         printf("\n");
     }
@@ -193,7 +193,7 @@ void u_matrix_print(int n, const double *A)
     for (int i = 0; i < n; ++i)
     {
         for (int j = 0; j < n; ++j)
-            printf("%.4lf\t", i < j ? A[i * n + j] : i == j ? 1 : 0);
+            printf("%.9lf\t", i < j ? A[i * n + j] : i == j ? 1 : 0);
 
         printf("\n");
     }
