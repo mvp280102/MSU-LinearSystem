@@ -229,3 +229,10 @@ void help_print()
     printf("\t-h, -?\tprint help and exit\n");
     printf("Default input_file_name value is lss_28_08_in.txt, default output_file_name value is lss_28_08_out.txt.\n");
 }
+
+// Выводит на экран сообщение об аварийном завершении работы и его причину.
+void aborting_print(const char *message)
+{
+    printf("%s\n", message);
+    printf("Aborting application!\n");
+}

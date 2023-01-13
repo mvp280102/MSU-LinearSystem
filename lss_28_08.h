@@ -184,3 +184,13 @@ void l_u_matrix_print(int n, const double *A);
  * Выводит на экран справочное сообщение.
  */
 void help_print();
+
+/*
+ * ОПИСАНИЕ:
+ * Выводит на экран сообщение об аварийном
+ * завершении работы и его причину.
+ *
+ * ПАРАМЕТРЫ:
+ * const char *message - сообщение о причине завершения
+ */
+void aborting_print(const char *message);
