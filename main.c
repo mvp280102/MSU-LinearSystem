@@ -3,14 +3,18 @@
 
 int main(int argc, char *argv[])
 {
-    size_t start_time, stop_time;
+    size_t start_time, stop_time;               // Замер времени исполнения.
 
-    int dim, error_code;
-    double *a_matrix, *b_array, *x_array;
+    int dim,                                    // Размерность матрицы коэффициентов системы и векторов.
+        return_code;                            // Код возврата.
 
-    size_t index = 1;
-    FILE *in_file = fopen("input.txt", "r"),
-         *out_file = fopen("output.txt", "w");
+    double *a_matrix,                           // Матрица коэффициентов системы.
+           *b_array,                            // Вектор значений свободных членов.
+           *x_array;                            // Вектор значений неизвестных переменных.
+
+    size_t index = 1;                           // Начальный индекс в массиве аргументов приложения.
+    FILE *in_file = fopen("input.txt", "r"),    // Входной файл.
+         *out_file = fopen("output.txt", "w");  // Выходной файл.
 
     if ((argc > 1) && (argv[1][0] != '-'))
     {
@@ -92,7 +96,7 @@ int main(int argc, char *argv[])
     if (time_print)
         start_time = clock();
 
-    error_code = lss_28_08(dim, a_matrix, b_array, x_array, NULL);
+    return_code = lss_28_08(dim, a_matrix, b_array, x_array, NULL);
 
     if (time_print)
     {
@@ -100,7 +104,7 @@ int main(int argc, char *argv[])
         printf("Working time - %zu ms.\n", stop_time - start_time);
     }
 
-    if (!error_code)
+    if (!return_code)
     {
         fprintf(out_file, "%d\n", dim);
 
@@ -117,5 +121,5 @@ int main(int argc, char *argv[])
     fclose(in_file);
     fclose(out_file);
 
-    return error_code;
+    return return_code;
 }
