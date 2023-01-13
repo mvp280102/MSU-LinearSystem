@@ -1,8 +1,8 @@
 .idea/
 
-lss_28_08_in.txt
-lss_28_08_out.txt
-readme_lss_28_08.txt
+input.txt
+output.txt
+readme.txt
 
 CMakeLists.txt
 /cmake-build-debug/

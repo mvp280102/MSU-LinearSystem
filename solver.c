@@ -1,4 +1,4 @@
-#include "lss_28_08.h"
+#include "solver.h"
 
 
 size_t debug_print = 0;
@@ -227,7 +227,7 @@ void help_print()
     printf("\t-e\tprint errors [default OFF]\n");
     printf("\t-t\tprint execution time [default OFF]\n");
     printf("\t-h, -?\tprint help and exit\n");
-    printf("Default input_file_name value is lss_28_08_in.txt, default output_file_name value is lss_28_08_out.txt.\n");
+    printf("Default input_file_name value is input.txt, default output_file_name value is output.txt.\n");
 }
 
 // Выводит на экран сообщение об аварийном завершении работы и его причину.

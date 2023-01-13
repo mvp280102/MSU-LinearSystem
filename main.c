@@ -1,4 +1,4 @@
-#include "lss_28_08.h"
+#include "solver.h"
 
 
 int main(int argc, char *argv[])
@@ -9,8 +9,8 @@ int main(int argc, char *argv[])
     double *a_matrix, *b_array, *x_array;
 
     size_t index = 1;
-    FILE *in_file = fopen("lss_28_08_in.txt", "r"),
-         *out_file = fopen("lss_28_08_out.txt", "w");
+    FILE *in_file = fopen("input.txt", "r"),
+         *out_file = fopen("output.txt", "w");
 
     if ((argc > 1) && (argv[1][0] != '-'))
     {
