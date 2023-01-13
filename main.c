@@ -13,6 +13,7 @@ int main(int argc, char *argv[])
            *x_array;                                // Вектор значений неизвестных переменных.
 
     size_t index = 1;                               // Начальный индекс в массиве аргументов приложения.
+
     FILE *in_file = fopen("input.txt", "r"),        // Входной файл.
          *out_file = fopen("output.txt", "w");      // Выходной файл.
 
