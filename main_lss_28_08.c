@@ -5,7 +5,7 @@ int main(int argc, char *argv[])
 {
     size_t start_time, stop_time;
 
-    int dim, error_code = 0;
+    int dim, error_code;
     double *a_matrix, *b_array, *x_array;
 
     size_t index = 1;
@@ -35,40 +35,59 @@ int main(int argc, char *argv[])
             case 'h':
             case '?':
                 help_print();
-                return error_code;
+
+                fclose(in_file);
+                fclose(out_file);
+
+                return 0;
 
             default:
                 if (errors_print)
-                    printf("Unknown option: %s.\n", argv[i]);
+                    aborting_print("Unknown option!");
 
-                error_code = 2;
+                fclose(in_file);
+                fclose(out_file);
+
+                return -2;
         }
 
     if (!in_file || !out_file)
     {
         if (errors_print)
-            printf("File(s) opening error!\n");
+            aborting_print("File(s) opening error!");
 
-        error_code = 3;
+        fclose(in_file);
+        fclose(out_file);
+
+        return -3;
     }
 
-    if (error_code)
-    {
-        printf("Aborting application!\n");
-        return error_code;
-    }
-
-    fscanf(in_file, "%d", &dim);
+    fscanf_s(in_file, "%d", &dim);
 
     a_matrix = (double*)malloc(lss_memsize_28_08(dim * dim));
     b_array = (double*)malloc(lss_memsize_28_08(dim));
     x_array = (double*)malloc(lss_memsize_28_08(dim));
 
+    if ((a_matrix == NULL) || (b_array == NULL) || (x_array == NULL))
+    {
+        if (errors_print)
+            aborting_print("Memory allocation error!\n");
+
+        free(a_matrix);
+        free(b_array);
+        free(x_array);
+
+        fclose(in_file);
+        fclose(out_file);
+
+        return -4;
+    }
+
     for (size_t i = 0; i < dim * dim; ++i)
-        fscanf(in_file, "%lf", &a_matrix[i]);
+        fscanf_s(in_file, "%lf", &a_matrix[i]);
 
     for (size_t i = 0; i < dim; ++i)
-        fscanf(in_file, "%lf", &b_array[i]);
+        fscanf_s(in_file, "%lf", &b_array[i]);
 
     if (time_print)
         start_time = clock();
@@ -95,8 +114,8 @@ int main(int argc, char *argv[])
     free(b_array);
     free(x_array);
 
-    fclose(out_file);
     fclose(in_file);
+    fclose(out_file);
 
     return error_code;
 }
