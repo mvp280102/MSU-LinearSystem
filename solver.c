@@ -227,7 +227,7 @@ void help_print()
     printf("\t-e\tprint errors [default OFF]\n");
     printf("\t-t\tprint execution time [default OFF]\n");
     printf("\t-h, -?\tprint help and exit\n");
-    printf("Default input_file_name value is input.txt, default output_file_name value is output.txt.\n");
+    printf("Default input file name value is \"input.txt\", default output file name value is \"output.txt\".\n");
 }
 
 // Выводит на экран сообщение об аварийном завершении работы и его причину.
